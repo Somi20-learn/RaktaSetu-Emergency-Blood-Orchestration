@@ -56,6 +56,8 @@ function findMatches(
 
             matches.push({
 
+                bankId: bank.id,
+
                 bankName: bank.name,
 
                 bloodGroup: bloodGroup,
@@ -63,6 +65,10 @@ function findMatches(
                 availableUnits: availableUnits,
 
                 distance: bank.distance,
+
+                lat: bank.lat,
+
+                lng: bank.lng,
 
                 score: score
 

@@ -3,3 +3,6 @@ node_modules/
 .env.local
 dist/
 build/
+
+# macOS
+.DS_Store

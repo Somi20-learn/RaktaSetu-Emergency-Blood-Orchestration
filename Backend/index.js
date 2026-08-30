@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const bloodBanks = require("./data/bloodData");
+const donors = require("./data/donors");
 const findMatches = require("./services/matchingEngine");
 
 const app = express();
@@ -22,6 +23,27 @@ app.get("/", (req, res) => {
 app.get("/api/blood-stock", (req, res) => {
 
     res.json(bloodBanks);
+
+});
+
+
+// Volunteer donors API
+// Optional ?bloodGroup= returns exact-group donors plus O- universal donors.
+app.get("/api/donors", (req, res) => {
+
+    const { bloodGroup } = req.query;
+
+    if (!bloodGroup) {
+        return res.json(donors);
+    }
+
+    const matchingDonors = donors.filter(
+        (donor) =>
+            donor.bloodGroup === bloodGroup ||
+            donor.bloodGroup === "O-"
+    );
+
+    res.json(matchingDonors);
 
 });
 
@@ -74,6 +96,12 @@ app.post("/api/reserve", (req, res) => {
     }
 
     const availableUnits = bank.inventory[bloodGroup];
+
+    if (availableUnits === undefined) {
+        return res.status(400).json({
+            message: "Unknown blood group for this bank"
+        });
+    }
 
     if (availableUnits < units) {
         return res.status(400).json({

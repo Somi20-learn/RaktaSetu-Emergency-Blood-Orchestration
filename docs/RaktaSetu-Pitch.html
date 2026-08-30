@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RaktaSetu — Pitch</title>
+<style>
+  @page { size: A4; margin: 13mm 14mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root{
+    --ink:#17181d; --muted:#5b616e; --line:#e6e1db;
+    --crimson:#C1121F; --crimson-deep:#8A0C16; --tint:#FBECEE; --tint2:#FAF6F4;
+    --ok:#137a3f; --no:#b0242f;
+  }
+  html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body{
+    font-family:-apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    color:var(--ink); font-size:10.3pt; line-height:1.5; background:#fff;
+  }
+  h1,h2,h3{ line-height:1.15; letter-spacing:-0.01em; }
+  p{ margin:0 0 6pt; }
+  strong{ font-weight:700; }
+  .muted{ color:var(--muted); }
+
+  /* ---------- Header band ---------- */
+  .hero{
+    border-top:5px solid var(--crimson);
+    padding:16pt 0 14pt; margin-bottom:14pt;
+    border-bottom:1px solid var(--line);
+  }
+  .brand{ display:flex; align-items:baseline; gap:8pt; }
+  .brand .drop{ font-size:20pt; }
+  .brand h1{ font-size:30pt; font-weight:800; color:var(--crimson-deep); }
+  .brand .tm{ font-size:9pt; color:var(--muted); align-self:flex-start; margin-top:3pt;}
+  .sub{ font-size:12.5pt; font-weight:600; margin-top:2pt; color:var(--ink);}
+  .oneliner{ font-size:10.3pt; color:var(--muted); margin-top:5pt; max-width:52em;}
+  .meta{ margin-top:9pt; display:flex; gap:6pt; flex-wrap:wrap;}
+  .pill{ font-size:8.2pt; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+    padding:3pt 8pt; border-radius:20pt; background:var(--tint); color:var(--crimson-deep);}
+  .pill.dark{ background:#1c1d22; color:#fff;}
+  .pill.line{ background:#fff; border:1px solid var(--line); color:var(--muted);}
+
+  /* ---------- Sections ---------- */
+  section{ margin:0 0 12pt; break-inside:avoid; }
+  .sec-h{ display:flex; align-items:center; gap:8pt; margin-bottom:7pt; }
+  .sec-h .no{ font-size:8.5pt; font-weight:800; color:#fff; background:var(--crimson);
+    width:17pt; height:17pt; border-radius:4pt; display:flex; align-items:center; justify-content:center; }
+  .sec-h h2{ font-size:13.5pt; font-weight:800; }
+  .lead{ font-size:10.5pt; }
+
+  /* ---------- Flow steps ---------- */
+  .flow{ display:flex; gap:6pt; margin-top:6pt; }
+  .step{ flex:1; background:var(--tint2); border:1px solid var(--line); border-radius:7pt; padding:8pt 9pt; }
+  .step b{ display:block; color:var(--crimson-deep); font-size:9.2pt; margin-bottom:2pt; }
+  .step span{ font-size:9pt; color:var(--muted); }
+
+  /* ---------- Callout ---------- */
+  .callout{ background:var(--tint); border-left:4px solid var(--crimson);
+    border-radius:0 8pt 8pt 0; padding:11pt 14pt; margin:4pt 0; }
+  .callout .q{ font-family:Georgia,"Times New Roman",serif; font-style:italic;
+    font-size:12pt; line-height:1.45; color:var(--crimson-deep); }
+
+  /* ---------- Table ---------- */
+  table{ width:100%; border-collapse:collapse; margin-top:4pt; font-size:9.2pt; }
+  th,td{ text-align:left; padding:6pt 8pt; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th{ background:#1c1d22; color:#fff; font-size:8.6pt; text-transform:uppercase; letter-spacing:.03em; }
+  thead th:first-child{ border-radius:6pt 0 0 0; }
+  thead th:last-child{ border-radius:0 6pt 0 0; text-align:center; }
+  tbody td:nth-child(2){ text-align:center; }
+  tbody td:nth-child(3){ text-align:center; }
+  .yes{ color:var(--ok); font-weight:800; }
+  .no{ color:var(--no); font-weight:800; }
+  .partial{ color:#b8860b; font-weight:700; font-size:8.4pt; }
+  .col-us{ background:var(--tint); font-weight:600; }
+
+  /* ---------- Diff cards ---------- */
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:7pt; margin-top:4pt; }
+  .card{ border:1px solid var(--line); border-radius:8pt; padding:9pt 10pt; break-inside:avoid; }
+  .card .top{ display:flex; align-items:center; gap:7pt; margin-bottom:3pt; }
+  .card .badge{ width:16pt; height:16pt; border-radius:50%; background:var(--crimson); color:#fff;
+    font-size:8.5pt; font-weight:800; display:flex; align-items:center; justify-content:center; flex:0 0 auto;}
+  .card h3{ font-size:10pt; font-weight:800; }
+  .card p{ font-size:9pt; color:var(--muted); margin:0; }
+  .card .tag{ display:inline-block; margin-top:5pt; font-size:7.8pt; font-weight:700; letter-spacing:.02em;
+    color:var(--crimson-deep); background:var(--tint); padding:2pt 6pt; border-radius:10pt; text-transform:uppercase;}
+
+  /* ---------- Priority tiers ---------- */
+  .tiers{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:7pt; margin-top:4pt; }
+  .tier{ border:1px solid var(--line); border-radius:8pt; overflow:hidden; break-inside:avoid; }
+  .tier .head{ padding:6pt 9pt; font-size:9pt; font-weight:800; color:#fff; }
+  .tier.must .head{ background:var(--crimson); }
+  .tier.high .head{ background:#1c1d22; }
+  .tier.vision .head{ background:#6b7280; }
+  .tier ul{ list-style:none; padding:7pt 9pt; }
+  .tier li{ font-size:8.9pt; padding-left:12pt; position:relative; margin-bottom:4pt; color:var(--ink); }
+  .tier li::before{ content:"›"; position:absolute; left:2pt; color:var(--crimson); font-weight:800; }
+
+  /* ---------- stack + footer ---------- */
+  .stack{ display:flex; flex-wrap:wrap; gap:5pt; margin-top:4pt; }
+  .chip{ font-size:8.6pt; padding:3pt 8pt; border:1px solid var(--line); border-radius:6pt; background:#fff; }
+  .foot{ margin-top:14pt; padding-top:9pt; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; font-size:8.4pt; color:var(--muted); }
+  .note{ font-size:8pt; color:#8a8f98; margin-top:3pt; font-style:italic; }
+  ul.plain{ margin:2pt 0 0 15pt; }
+  ul.plain li{ margin-bottom:3pt; }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="brand">
+      <span class="drop">🩸</span>
+      <h1>RaktaSetu</h1>
+      <span class="tm">/ रक्तसेतु</span>
+    </div>
+    <div class="sub">Real-Time Emergency Blood <span style="color:var(--crimson)">Orchestration</span> Platform</div>
+    <p class="oneliner">A 911 for blood. Hospitals raise an emergency request and instantly get ranked, available, medically-compatible sources — while the network quietly predicts shortages and redistributes blood before it expires.</p>
+    <div class="meta">
+      <span class="pill dark">Ignition Hackathon</span>
+      <span class="pill">MVP — Node.js · Express</span>
+      <span class="pill line">Team of 4</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-h"><span class="no">1</span><h2>The Problem</h2></div>
+    <p class="lead">In a trauma emergency, the <strong>golden hour</strong> is spent on the phone. Hospitals call blood bank after blood bank, and chase donors separately, with no live view of who actually has the right group in stock nearby.</p>
+    <ul class="plain muted">
+      <li>Blood availability is fragmented across banks, hospitals, and donors — there is no single real-time view.</li>
+      <li>Matching is done manually and only by exact group — compatibility and expiry are ignored under pressure.</li>
+      <li>Meanwhile, <strong>lakhs of units are wasted in India every year</strong> — much of it simply expiring unused on a shelf a few kilometres away.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="no">2</span><h2>The Solution</h2></div>
+    <p class="lead">RaktaSetu connects hospitals, blood banks, and eligible donors on one platform and turns "find blood" into an orchestrated, prioritized workflow.</p>
+    <div class="flow">
+      <div class="step"><b>1 · Request</b><span>Hospital raises a request: group, units, urgency.</span></div>
+      <div class="step"><b>2 · Match</b><span>Engine ranks sources by compatibility, stock, distance, urgency & expiry.</span></div>
+      <div class="step"><b>3 · Reserve</b><span>Reserve units at the best source in one tap.</span></div>
+      <div class="step"><b>4 · Escalate</b><span>No fit? Auto-escalate to the next-best source instantly.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="no">3</span><h2>Why We're Different — Finder → Orchestrator</h2></div>
+    <p class="lead">Blood-bank <em>finders</em> already exist (e-RaktKosh, Friends2Support). RaktaSetu wins by doing what a finder can't: <strong>preventing shortages and eliminating waste across the whole network.</strong></p>
+    <table>
+      <thead>
+        <tr><th>Capability</th><th>Existing apps</th><th>RaktaSetu</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Find available blood nearby</td><td class="yes">✓</td><td class="col-us yes">✓</td></tr>
+        <tr><td>True ABO / Rh compatibility matching</td><td class="partial">partial</td><td class="col-us yes">✓</td></tr>
+        <tr><td>Predict shortages before they happen</td><td class="no">✗</td><td class="col-us yes">✓</td></tr>
+        <tr><td>Redistribute near-expiry units (zero-waste)</td><td class="no">✗</td><td class="col-us yes">✓</td></tr>
+        <tr><td>Split one request across multiple banks</td><td class="no">✗</td><td class="col-us yes">✓</td></tr>
+        <tr><td>SOS to donors for rare groups (O−, Bombay)</td><td class="partial">partial</td><td class="col-us yes">✓</td></tr>
+        <tr><td>Live routing & ETA to the hospital</td><td class="no">✗</td><td class="col-us yes">✓</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="no">4</span><h2>Key Differentiators</h2></div>
+    <div class="grid">
+      <div class="card">
+        <div class="top"><span class="badge">1</span><h3>Predictive Shortage Engine</h3></div>
+        <p>Forecasts which group will run short, at which hospital, in the next few days — from usage patterns and seasonal spikes (accidents, dengue, festivals).</p>
+        <span class="tag">Proactive, not reactive</span>
+      </div>
+      <div class="card">
+        <div class="top"><span class="badge">2</span><h3>Zero-Waste Redistribution</h3></div>
+        <p>Detects near-expiry units in surplus banks and routes them to high-demand banks before they expire (First-Expiry-First-Out).</p>
+        <span class="tag">Turns waste into lives</span>
+      </div>
+      <div class="card">
+        <div class="top"><span class="badge">3</span><h3>Multi-Bank Orchestration</h3></div>
+        <p>When no single bank can supply 6 units, it splits and routes the order across 2–3 banks — logistics, not a phone book.</p>
+        <span class="tag">On-brand: orchestration</span>
+      </div>
+      <div class="card">
+        <div class="top"><span class="badge">4</span><h3>Donor SOS for Rare Groups</h3></div>
+        <p>For O− and the Bombay group, auto-broadcasts an SOS to nearby eligible donors — respecting the 90-day donation gap.</p>
+        <span class="tag">Reaches where banks can't</span>
+      </div>
+      <div class="card">
+        <div class="top"><span class="badge">5</span><h3>Component-Level Intelligence</h3></div>
+        <p>Matches actual components hospitals need — PRBC, platelets, plasma, cryo — not a generic "blood" bucket.</p>
+        <span class="tag">Real clinical depth</span>
+      </div>
+      <div class="card">
+        <div class="top"><span class="badge">6</span><h3>Live Green-Corridor Map</h3></div>
+        <p>Animates blood moving bank → hospital with live ETA on a map; a path to drone delivery for critical cases.</p>
+        <span class="tag">Demo-day wow factor</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="callout">
+    <div class="q">"e-RaktKosh and others help you <b>find</b> blood. RaktaSetu <b>orchestrates</b> the entire network — predicting shortages before they happen and redistributing blood before it expires — so no patient waits and no unit is wasted."</div>
+  </div>
+
+  <section>
+    <div class="sec-h"><span class="no">5</span><h2>What We'll Build (Prioritized)</h2></div>
+    <div class="tiers">
+      <div class="tier must">
+        <div class="head">Must-build (demo core)</div>
+        <ul>
+          <li>ABO / Rh compatibility engine</li>
+          <li>Zero-waste redistribution (FEFO)</li>
+          <li>Multi-bank split fulfilment</li>
+        </ul>
+      </div>
+      <div class="tier high">
+        <div class="head">High-impact add</div>
+        <ul>
+          <li>Predictive shortage dashboard</li>
+          <li>Donor SOS broadcast</li>
+          <li>MongoDB persistence + status tracking</li>
+        </ul>
+      </div>
+      <div class="tier vision">
+        <div class="head">Pitch as vision</div>
+        <ul>
+          <li>Component-level matching</li>
+          <li>Live routing / ETA map</li>
+          <li>Drone & green-corridor delivery</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-h"><span class="no">6</span><h2>Tech Stack</h2></div>
+    <div class="stack">
+      <span class="chip">React (frontend)</span>
+      <span class="chip">Node.js + Express (API)</span>
+      <span class="chip">MongoDB (data)</span>
+      <span class="chip">Leaflet + OpenStreetMap (maps)</span>
+      <span class="chip">Lightweight forecasting model</span>
+      <span class="chip">SMS / WhatsApp alerts (donor SOS)</span>
+    </div>
+    <p class="note">Note: verify and cite an exact blood-wastage figure (RTI / NACO / e-RaktKosh data) before presenting to judges.</p>
+  </section>
+
+  <div class="foot">
+    <span><strong style="color:var(--crimson-deep)">RaktaSetu</strong> — Real-Time Emergency Blood Orchestration</span>
+    <span>Ignition Hackathon · MVP in progress · Team of 4</span>
+  </div>
+
+</body>
+</html>

@@ -3,6 +3,8 @@ const bloodBanks = [
         id: 1,
         name: "City Blood Bank",
         distance: 5,
+        lat: 28.6520,
+        lng: 77.2250,
         inventory: {
             "A+": 10,
             "A-": 5,
@@ -19,6 +21,8 @@ const bloodBanks = [
         id: 2,
         name: "LifeCare Blood Bank",
         distance: 8,
+        lat: 28.5750,
+        lng: 77.2400,
         inventory: {
             "A+": 12,
             "A-": 4,
@@ -35,6 +39,8 @@ const bloodBanks = [
         id: 3,
         name: "Red Cross Blood Bank",
         distance: 12,
+        lat: 28.7050,
+        lng: 77.1450,
         inventory: {
             "A+": 8,
             "A-": 3,
